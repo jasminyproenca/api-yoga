@@ -1,0 +1,239 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Cadastro de Alunos",
+    "version": "1.0.0",
+    "description": "API Rest para cadastro de alunos do programa de Yoga"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/api/aluno": {
+      "post": {
+        "summary": "Cadastro de aluno",
+        "description": "Cria um novo registro de aluno no sistema",
+        "tags": ["Alunos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NovoAluno"
+              },
+              "examples": {
+                "exemplo1": {
+                  "value": {
+                    "nome": "João Silva",
+                    "cpf": 12345678910,
+                    "email": "joao@example.com",
+                    "telefone": 11987654321
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Aluno cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespostaSucesso"
+                },
+                "examples": {
+                  "exemplo": {
+                    "value": {
+                      "sucesso": true,
+                      "mensagem": "Aluno cadastrado com sucesso",
+                      "data": {
+                        "id": "550e8400-e29b-41d4-a716-446655440000",
+                        "nome": "João Silva",
+                        "cpf": 12345678910,
+                        "email": "joao@example.com",
+                        "telefone": 11987654321,
+                        "dataCriacao": "2026-04-03T10:30:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos ou corpo da requisição vazio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespostaErro"
+                },
+                "examples": {
+                  "camposFaltando": {
+                    "value": {
+                      "erro": "Dados inválidos",
+                      "mensagem": "Todos os campos são obrigatórios"
+                    }
+                  },
+                  "cpfInvalido": {
+                    "value": {
+                      "erro": "Dados inválidos",
+                      "mensagem": "CPF deve ser um número"
+                    }
+                  },
+                  "emailInvalido": {
+                    "value": {
+                      "erro": "Dados inválidos",
+                      "mensagem": "Email inválido"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "CPF ou email já cadastrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespostaErro"
+                },
+                "examples": {
+                  "cpfDuplicado": {
+                    "value": {
+                      "erro": "Conflito",
+                      "mensagem": "CPF já cadastrado"
+                    }
+                  },
+                  "emailDuplicado": {
+                    "value": {
+                      "erro": "Conflito",
+                      "mensagem": "Email já cadastrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespostaErro"
+                },
+                "examples": {
+                  "erroInterno": {
+                    "value": {
+                      "erro": "Erro interno do servidor",
+                      "mensagem": "Ocorreu um erro inesperado"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NovoAluno": {
+        "type": "object",
+        "required": ["nome", "cpf", "email", "telefone"],
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome completo do aluno",
+            "example": "João Silva"
+          },
+          "cpf": {
+            "type": "number",
+            "description": "CPF do aluno (somente números)",
+            "example": 12345678910
+          },
+          "email": {
+            "type": "string",
+            "description": "Email único do aluno",
+            "format": "email",
+            "example": "joao@example.com"
+          },
+          "telefone": {
+            "type": "number",
+            "description": "Telefone do aluno (somente números)",
+            "example": 11987654321
+          }
+        }
+      },
+      "Aluno": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do aluno (UUID)",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome completo do aluno",
+            "example": "João Silva"
+          },
+          "cpf": {
+            "type": "number",
+            "description": "CPF do aluno",
+            "example": 12345678910
+          },
+          "email": {
+            "type": "string",
+            "description": "Email do aluno",
+            "example": "joao@example.com"
+          },
+          "telefone": {
+            "type": "number",
+            "description": "Telefone do aluno",
+            "example": 11987654321
+          },
+          "dataCriacao": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data e hora de criação do registro",
+            "example": "2026-04-03T10:30:00.000Z"
+          }
+        }
+      },
+      "RespostaSucesso": {
+        "type": "object",
+        "properties": {
+          "sucesso": {
+            "type": "boolean",
+            "example": true
+          },
+          "mensagem": {
+            "type": "string",
+            "example": "Aluno cadastrado com sucesso"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Aluno"
+          }
+        }
+      },
+      "RespostaErro": {
+        "type": "object",
+        "properties": {
+          "erro": {
+            "type": "string",
+            "description": "Tipo de erro"
+          },
+          "mensagem": {
+            "type": "string",
+            "description": "Descrição do erro"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "api-yoga",
+  "version": "1.0.0",
+  "description": "API Rest para cadastro de alunos",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "mocha tests/**/*.test.js --reporter mochawesome",
+    "test:watch": "mocha tests/**/*.test.js --watch"
+    
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "alunos"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "swagger-ui-express": "^4.6.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "mochawesome": "^7.1.4",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
+  }
+}
