@@ -4,7 +4,7 @@ API Rest para cadastro de alunos do programa de Yoga, desenvolvida com Node.js e
 
 ## Objetivo
 
-Fornecer uma API Rest simples e eficiente para cadastro de alunos, com armazenamento em memória e documentação via Swagger.
+Fornecer uma API REST simples e eficiente para cadastro de alunos, utilizando o framework Express, com armazenamento em memória, documentação via Swagger e cobertura de testes automatizados para validação da operação de cadastro.
 
 ## Tecnologias Utilizadas
 
@@ -51,7 +51,13 @@ api-yoga/
 
 ### Passos
 
-1. Clone ou crie o projeto
+1. Clone o projeto
+
+```bash
+git clone https://github.com/jasminyproenca/api-yoga
+
+```
+
 2. Instale as dependências:
 
 ```bash
