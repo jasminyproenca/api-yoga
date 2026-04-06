@@ -228,6 +228,8 @@ Acesse em: `http://localhost:3000/api-docs`
 
 API de Cadastro de Alunos - Programa de Yoga
 
+Teste de commit feito por Claudia
+
 ## Licença
 
 ISC
